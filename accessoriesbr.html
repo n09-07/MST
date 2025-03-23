@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>accessories</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 90%;
+        }
+
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 20%;
+                height: 100vh;
+                position: fixed;
+                border-right: 1px solid #ddd;
+            }
+        }
+
+        .content {
+            margin-left: 0;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 22%;
+            }
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+            gap: 30px; /* Increased space between cards */
+        }
+
+        .card {
+            text-align: center;
+            background-color: #e0f7fa; /* Light blue shade */
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px; /* Spacing from top */
+            margin-bottom: 20px; /* Spacing from bottom */
+            height: 400px; /* Adjusted card height */
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 80%;
+            border-radius: 8px;
+            margin-bottom: 10px; /* Space between image and text */
+            max-height: 200px; /* Limit image size */
+            object-fit: cover;
+        }
+
+        .card-description {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            color: #dc3545; /* Red shade */
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px; /* Reduced space */
+        }
+
+        .card-rating {
+            color: #c82333; /* Different red shade */
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 5px; /* Reduced space */
+        }
+
+        .btn-apply {
+            background-color: #333; /* Dark color initially */
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-apply:hover {
+            background-color: #e0e0e0; /* Lighter color on hover */
+            color: #333;
+        }
+
+        .main-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Filters</h2>
+        <div class="filter-group">
+            <label for="price">Price Range</label>
+            <select id="price">
+                <option value="all">All</option>
+                <option value="10000-20000">10000 - 20000</option>
+                <option value="20000-40000">20000 - 40000</option>
+                <option value="40000-50000">40000 - 50000</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="rating">Rating</label>
+            <select id="rating">
+                <option value="all">All Ratings</option>
+                <option value="4">4 Stars & Up</option>
+                <option value="3">3 Stars & Up</option>
+                <option value="2">2 Stars & Up</option>
+            </select>
+        </div>
+
+        <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="content">
+        <h2 class="main-heading">Nightstands & Vanity Tables</h2>
+<p class="sub-heading">Explore our wide range of stylish and functional nightstands and vanity tables to enhance your bedroom and personal space.</p>
+
+
+        <div class="images" id="product-list">
+            <!-- Nightstands -->
+            <div class="card mb-5" data-price="16500" data-rating="4"> 
+                <img src="https://iili.io/2ZPwt0G.jpg" alt="Image 1">
+                <h3>Elegant Nightstand</h3>
+                <p class="card-description">A simple yet elegant nightstand with a rustic charm.</p>
+                <p class="card-price">Price:16500</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card mb-5" data-price="20600" data-rating="5">
+                <img src="https://iili.io/2ZPkivf.jpg" alt="Image 2">
+                <h3>Stylish Vanity Table</h3>
+                <p class="card-description">A modern vanity table perfect for any dressing area.</p>
+                <p class="card-price">Price:20600</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="13100" data-rating="3">
+                <img src="https://iili.io/2ZPv89j.jpg" alt="Image 3">
+                <h3>Minimal Nightstand</h3>
+                <p class="card-description">A sleek, minimal nightstand for a contemporary look.</p>
+                <p class="card-price">Price:13100</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+            <!-- Nightstands -->
+            <div class="card mb-5" data-price="49700" data-rating="4">
+                <img src="https://iili.io/2ZP8If9.jpg" alt="Image 4">
+                <h3>Luxury Nightstand</h3>
+                <p class="card-description">An elegant nightstand with additional storage space.</p>
+                <p class="card-price">Price:49700</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <!-- Vanity Tables -->
+            <div class="card mb-5" data-price="53900" data-rating="5">
+                <img src="https://iili.io/2ZP8gJs.jpg" alt="Image 5">
+                <h3>Classic Vanity Table</h3>
+                <p class="card-description">A timeless vanity table with ample storage and mirror.</p>
+                <p class="card-price">Price:53900</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="58100" data-rating="3">
+                <img src="https://iili.io/2ZPSX49.jpg" alt="Image 6">
+                <h3>Modern Nightstand</h3>
+                <p class="card-description">A modern nightstand with sleek design and a spacious drawer.</p>
+                <p class="card-price">Price:58100</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+            <!-- Nightstands -->
+            <div class="card mb-5" data-price="49700" data-rating="4">
+                <img src="https://iili.io/2ZPUJvs.jpg" alt="Image 7">
+                <h3>Mid-Century Vanity Table</h3>
+                <p class="card-description">A mid-century inspired vanity table that adds style and function to your room.</p>
+                <p class="card-price">Price:49700</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <!-- Vanity Tables -->
+            <div class="card mb-5" data-price="28900" data-rating="5">
+                <img src="https://iili.io/2ZPUWtR.jpg" alt="Image 8">
+                <h3>Round Nightstand</h3>
+                <p class="card-description">A round, wooden nightstand that blends well with any decor.</p>
+                <p class="card-price">Price:28900</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="38000" data-rating="3">
+                <img src="https://iili.io/2ZPgEfS.jpg" alt="Image 9">
+                <h3>Compact Vanity Table</h3>
+                <p class="card-description">A space-saving vanity table with a modern design.</p>
+                <p class="card-price">Price:38000</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            let priceFilter = document.getElementById('price').value;
+            let ratingFilter = document.getElementById('rating').value;
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let price = parseInt(card.getAttribute('data-price'));
+                let rating = parseInt(card.getAttribute('data-rating'));
+
+                // Reset the display to block initially
+                card.style.display = 'block';
+
+                // Price Filter
+                if (priceFilter !== 'all') {
+                    let priceRange = priceFilter.split('-');
+                    let minPrice = parseInt(priceRange[0]);
+                    let maxPrice = parseInt(priceRange[1]);
+                    if (price < minPrice || price > maxPrice) {
+                        card.style.display = 'none';
+                    }
+                }
+
+                // Rating Filter
+                if (ratingFilter !== 'all' && rating < parseInt(ratingFilter)) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

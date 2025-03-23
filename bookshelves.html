@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelves</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 90%;
+        }
+
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 20%;
+                height: 100vh;
+                position: fixed;
+                border-right: 1px solid #ddd;
+            }
+        }
+
+        .content {
+            margin-left: 0;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 22%;
+            }
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+            gap: 30px; /* Increased space between cards */
+        }
+
+        .card {
+            text-align: center;
+            background-color: #e0f7fa; /* Light blue shade */
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px; /* Spacing from top */
+            margin-bottom: 20px; /* Spacing from bottom */
+            height: 400px; /* Adjusted card height */
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 80%;
+            border-radius: 8px;
+            margin-bottom: 10px; /* Space between image and text */
+            max-height: 200px; /* Limit image size */
+            object-fit: cover;
+        }
+
+        .card-description {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            color: #dc3545; /* Red shade */
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px; /* Reduced space */
+        }
+
+        .card-rating {
+            color: #c82333; /* Different red shade */
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 5px; /* Reduced space */
+        }
+
+        .btn-apply {
+            background-color: #333; /* Dark color initially */
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-apply:hover {
+            background-color: #e0e0e0; /* Lighter color on hover */
+            color: #333;
+        }
+
+        .main-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Filters</h2>
+        <div class="filter-group">
+            <label for="price">Price Range</label>
+            <select id="price">
+                <option value="all">All</option>
+                <option value="20000-25000">20000 - 25000</option>
+                <option value="25000-35000">25000 - 35000</option>
+                <option value="35000-45000">35000 - 45000</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="rating">Rating</label>
+            <select id="rating">
+                <option value="all">All Ratings</option>
+                <option value="4">4 Stars & Up</option>
+                <option value="3">3 Stars & Up</option>
+                <option value="2">2 Stars & Up</option>
+            </select>
+        </div>
+
+        <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="content">
+        <h2 class="main-heading">Bookshelves</h2>
+        <p class="sub-heading">Browse various bookshelf styles and find the perfect one for your home or office.</p>
+
+        <div class="images" id="product-list">
+
+            <div class="card mb-5" data-price="29999" data-rating="4">
+                <img src="https://i.ibb.co/rRBZW6wK/Loon-Peak-Haiylee-Bookcase-Wayfair.jpg" alt="Loon-Peak-Haiylee-Bookcase-Wayfair">
+                <h3>Wooden Bookshelf</h3>
+                <p class="card-description">A rustic wooden bookshelf perfect for traditional settings.</p>
+                <p class="card-price">Price: 29999</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card mb-5" data-price="35000" data-rating="5">
+                <img src="https://i.ibb.co/gZ8QJbV9/Unveiling-the-Sleek-Industrial-Bookshelf.jpg" alt="Unveiling-the-Sleek-Industrial-Bookshelf">
+                <h3>Industrial Metal Bookshelf</h3>
+                <p class="card-description">A sturdy metal bookshelf with a modern industrial look.</p>
+                <p class="card-price">Price: 35000</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="40000" data-rating="3">
+                <img src="https://i.ibb.co/HTy7zCTX/21-Brilliant-Bookshelf-Ideas-to-Transform-Your-Space.jpg" alt="21-Brilliant-Bookshelf-Ideas-to-Transform-Your-Space">
+                <h3>Wall-mounted Bookshelf</h3>
+                <p class="card-description">Space-saving wall-mounted bookshelf ideal for small rooms.</p>
+                <p class="card-price">Price:40000</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+            <div class="card mb-5" data-price="45000" data-rating="4">
+                <img src="https://i.ibb.co/k6kWgqC4/12-Multipurpose-Furniture-Ideas-for-Effective-Space-Planning.jpg" alt="12-Multipurpose-Furniture-Ideas-for-Effective-Space-Planning">
+                <h3>Glass Bookshelf</h3>
+                <p class="card-description">A modern, sleek glass bookshelf perfect for minimalistic decor.</p>
+                <p class="card-price">Price: 45000</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card mb-5" data-price="30000" data-rating="5">
+                <img src="https://i.ibb.co/C57f1cJ7/LITFAD-Modern-Vertical-Corner-Bookshelf-Solid-Wood-Floor-Bookcase-with-Shelves-Open-Back-Design-Livi.jpg" alt="LITFAD-Modern-Vertical-Corner-Bookshelf-Solid-Wood-Floor-Bookcase-with-Shelves-Open-Back-Design-Livi">
+                <h3>Corner Bookshelf</h3>
+                <p class="card-description">A compact corner bookshelf to maximize your space.</p>
+                <p class="card-price">Price: 30000</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="25000" data-rating="4">
+                <img src="https://i.ibb.co/PG7QpFS3/Boekenkast-in-eigentijdse-stijl-ontworpen-houten-boekenkast-voor-thuis-en-op-kantoor-39-4-inch-L-x-1.jpg" alt="Boekenkast-in-eigentijdse-stijl-ontworpen-houten-boekenkast-voor-thuis-en-op-kantoor-39-4-inch-L-x-1">
+                <h3>Standard Bookshelf</h3>
+                <p class="card-description">A traditional bookshelf with multiple horizontal shelves.</p>
+                <p class="card-price">Price: 25000</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card mb-5" data-price="22000" data-rating="5">
+                <img src="https://i.ibb.co/NdYFdcb5/Want-to-add-a-touch-of-sophistication-to-your-living-room.jpg" alt="Want-to-add-a-touch-of-sophistication-to-your-living-room">
+                <h3>Ladder Bookshelf</h3>
+                <p class="card-description">A modern bookshelf with a ladder-like design and open storage.</p>
+                <p class="card-price">Price: 22000</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="44999" data-rating="3">
+                <img src="https://i.ibb.co/v4YpS5dr/Home-Decorators-Collection-Bradstone-72-in-Walnut-Brown-Wood-Bookcase-with-Glass-Doors-JS-3424-C-The.jpg" alt="Home-Decorators-Collection-Bradstone-72-in-Walnut-Brown-Wood-Bookcase-with-Glass-Doors-JS-3424-C-The">
+                <h3>Bookcase with Doors</h3>
+                <p class="card-description">A classic design with doors to store books safely.</p>
+                <p class="card-price">Price: 44999</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            let priceFilter = document.getElementById('price').value;
+            let ratingFilter = document.getElementById('rating').value;
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let price = parseInt(card.getAttribute('data-price'));
+                let rating = parseInt(card.getAttribute('data-rating'));
+
+                // Reset the display to block initially
+                card.style.display = 'block';
+
+                // Price Filter
+                if (priceFilter !== 'all') {
+                    let priceRange = priceFilter.split('-');
+                    let minPrice = parseInt(priceRange[0]);
+                    let maxPrice = parseInt(priceRange[1]);
+                    if (price < minPrice || price > maxPrice) {
+                        card.style.display = 'none';
+                    }
+                }
+
+                // Rating Filter
+                if (ratingFilter !== 'all' && rating < parseInt(ratingFilter)) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

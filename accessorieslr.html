@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Display</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 90%;
+        }
+
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 20%;
+                height: 100vh;
+                position: fixed;
+                border-right: 1px solid #ddd;
+            }
+        }
+
+        .content {
+            margin-left: 0;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 22%;
+            }
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+            gap: 30px; /* Increased space between cards */
+        }
+
+        .card {
+            text-align: center;
+            background-color: #e0f7fa; /* Light blue shade */
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px; /* Spacing from top */
+            margin-bottom: 20px; /* Spacing from bottom */
+            height: 400px; /* Adjusted card height */
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 80%;
+            border-radius: 8px;
+            margin-bottom: 10px; /* Space between image and text */
+            max-height: 200px; /* Limit image size */
+            object-fit: cover;
+        }
+
+        .card-description {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            color: #dc3545; /* Red shade */
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px; /* Reduced space */
+        }
+
+        .card-rating {
+            color: #c82333; /* Different red shade */
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 5px; /* Reduced space */
+        }
+
+        .btn-apply {
+            background-color: #333; /* Dark color initially */
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-apply:hover {
+            background-color: #e0e0e0; /* Lighter color on hover */
+            color: #333;
+        }
+
+        .main-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Filters</h2>
+        <div class="filter-group">
+            <label for="price">Price Range</label>
+            <select id="price">
+                <option value="all">All</option>
+                <option value="10000-20000">10000 - 20000</option>
+                <option value="20000-40000">20000 - 40000</option>
+                <option value="40000-55000">40000 - 60000</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="rating">Rating</label>
+            <select id="rating">
+                <option value="all">All Ratings</option>
+                <option value="4">4 Stars & Up</option>
+                <option value="3">3 Stars & Up</option>
+                <option value="2">2 Stars & Up</option>
+            </select>
+        </div>
+
+        <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="content">
+        <h2 class="main-heading">Product Collection</h2>
+        <p class="sub-heading">Explore a variety of stylish products for your home.</p>
+
+        <div class="images" id="product-list">
+            <!-- Floor Lamp Section -->
+            <div class="card mb-5" data-price="16318" data-rating="4"> 
+                <img src="https://iili.io/2Z42D3g.jpg" alt="Floor Lamp 1">
+                <h3>Elegant Floor Lamp</h3>
+                <p class="card-description">Add elegance to your living room with this tall, graceful floor lamp.</p>
+                <p class="card-price">Price:16318</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card mb-5" data-price="20418" data-rating="5">
+                <img src="https://iili.io/2Z4dDml.jpg" alt="Floor Lamp 2">
+                <h3>Modern Floor Lamp</h3>
+                <p class="card-description">A sleek and stylish design that brings modern charm to any space.</p>
+                <p class="card-price">Price:20418</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="13038" data-rating="3">
+                <img src="https://iili.io/2Z43iHG.jpg" alt="Floor Lamp 3">
+                <h3>Classic Floor Lamp</h3>
+                <p class="card-description">A timeless design with a touch of vintage flair for your living area.</p>
+                <p class="card-price">Price:13038</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+            <div class="card mb-5" data-price="49118" data-rating="4">
+                <img src="https://iili.io/2Z4FI5J.jpg" alt="Floor Lamp 4">
+                <h3>Industrial Floor Lamp</h3>
+                <p class="card-description">Bold and industrial, perfect for modern urban spaces.</p>
+                <p class="card-price">Price:49118</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+
+            <!-- Table Lamp Section -->
+            <div class="card mb-5" data-price="53218" data-rating="5">
+                <img src="https://iili.io/2Z4KChl.jpg" alt="Table Lamp 1">
+                <h3>Luxury Table Lamp</h3>
+                <p class="card-description">A luxurious table lamp that adds a sophisticated touch to your desk.</p>
+                <p class="card-price">Price: 53218</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="57318" data-rating="3">
+                <img src="https://iili.io/2Z4qqs2.jpg" alt="Table Lamp 2">
+                <h3>Contemporary Table Lamp</h3>
+                <p class="card-description">A contemporary design that seamlessly blends into any modern interior.</p>
+                <p class="card-price">Price: 57318</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+            <div class="card mb-5" data-price="49118" data-rating="4">
+                <img src="https://iili.io/2Z4BYTG.jpg" alt="Table Lamp 3">
+                <h3>Minimalist Table Lamp</h3>
+                <p class="card-description">A minimalist table lamp with a sleek design that enhances any room.</p>
+                <p class="card-price">Price:49118</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+
+            <!-- Carpet Section -->
+            <div class="card mb-5" data-price="28618" data-rating="5">
+                <img src="https://iili.io/2Z4C3Ml.jpg" alt="Carpet 1">
+                <h3>Woven Area Carpet</h3>
+                <p class="card-description">A woven area rug that brings warmth and texture to your living space.</p>
+                <p class="card-price">Price: 28618</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="37638" data-rating="3">
+                <img src="https://iili.io/2Z4C1DJ.jpg" alt="Carpet 2">
+                <h3>Modern Abstract Carpet</h3>
+                <p class="card-description">An abstract design carpet that brings an artistic touch to your home.</p>
+                <p class="card-price">Price:37638</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            let priceFilter = document.getElementById('price').value;
+            let ratingFilter = document.getElementById('rating').value;
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let price = parseInt(card.getAttribute('data-price'));
+                let rating = parseInt(card.getAttribute('data-rating'));
+
+                // Reset the display to block initially
+                card.style.display = 'block';
+
+                // Price Filter
+                if (priceFilter !== 'all') {
+                    let priceRange = priceFilter.split('-');
+                    let minPrice = parseInt(priceRange[0]);
+                    let maxPrice = parseInt(priceRange[1]);
+                    if (price < minPrice || price > maxPrice) {
+                        card.style.display = 'none';
+                    }
+                }
+
+                // Rating Filter
+                if (ratingFilter !== 'all' && rating < parseInt(ratingFilter)) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

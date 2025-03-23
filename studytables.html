@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Tables</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 90%;
+        }
+
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 20%;
+                height: 100vh;
+                position: fixed;
+                border-right: 1px solid #ddd;
+            }
+        }
+
+        .content {
+            margin-left: 0;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 22%;
+            }
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            text-align: center;
+            background-color: #e3f2fd;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 80%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        .card-description {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            color: #1e88e5;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-rating {
+            color: #1565c0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .btn-apply {
+            background-color: #333;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-apply:hover {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .main-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Filters</h2>
+        <div class="filter-group">
+            <label for="price">Price Range</label>
+            <select id="price">
+                <option value="all">All</option>
+                <option value="100-300">100 - 300</option>
+                <option value="300-500">300 - 500</option>
+                <option value="500-750">500 - 750</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="rating">Rating</label>
+            <select id="rating">
+                <option value="all">All Ratings</option>
+                <option value="4">4 Stars & Up</option>
+                <option value="3">3 Stars & Up</option>
+                <option value="2">2 Stars & Up</option>
+            </select>
+        </div>
+
+        <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="content">
+        <h2 class="main-heading">Study Tables</h2>
+        <p class="sub-heading">Find the perfect study table to enhance productivity and comfort.</p>
+
+        <div class="images" id="product-list">
+            <div class="card" data-price="150" data-rating="4">
+                <img src="https://iili.io/2ZUnx4t.jpg" alt="Compact Study Table">
+                <h3>Compact Study Table</h3>
+                <p class="card-description">A compact and minimal design for small spaces.</p>
+                <p class="card-price">Price: 150</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card" data-price="400" data-rating="5">
+                <img src="https://iili.io/2ZUnI3X.jpg" alt="Executive Study Table">
+                <h3>Executive Study Table</h3>
+                <p class="card-description">Spacious and elegant table for professional setups.</p>
+                <p class="card-price">Price: 400</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card" data-price="600" data-rating="3">
+                <img src="https://iili.io/2ZUnuvs.jpg" alt="Modern Wooden Study Table">
+                <h3>Modern Wooden Study Table</h3>
+                <p class="card-description">Elegant wooden table with ample storage.</p>
+                <p class="card-price">Price: 600</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+            <div class="card" data-price="250" data-rating="4">
+                <img src="https://iili.io/2ZUnAyG.jpg" alt="Adjustable Height Table">
+                <h3>Adjustable Height Table</h3>
+                <p class="card-description">Ergonomic table with adjustable height feature.</p>
+                <p class="card-price">Price: 250</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card" data-price="500" data-rating="5">
+                <img src="https://iili.io/2ZUn5uf.jpg" alt="Rustic Study Desk">
+                <h3>Rustic Study Desk</h3>
+                <p class="card-description">A charming rustic desk for cozy work environments.</p>
+                <p class="card-price">Price: 500</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+
+            <div class="card" data-price="320" data-rating="4">
+                <img src="https://iili.io/3Ky3Z8X.jpg" alt="Minimal Scandinavian Study Table">
+                <h3>Minimal Scandinavian Study Table</h3>
+                <p class="card-description">A sleek and modern study table inspired by Scandinavian design.</p>
+                <p class="card-price">Price: 320</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card" data-price="720" data-rating="5">
+                <img src="https://iili.io/3Ky3LFI.jpg" alt="Bookshelf Integrated Study Table">
+                <h3>Bookshelf Integrated Study Table</h3>
+                <p class="card-description">A multi-functional study table with built-in bookshelf storage.</p>
+                <p class="card-price">Price: 720</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card" data-price="480" data-rating="4">
+                <img src="https://iili.io/3Ky3Qat.jpg" alt="Industrial Metal and Wood Study Desk">
+                <h3>Industrial Metal and Wood Study Desk</h3>
+                <p class="card-description">A robust industrial-style desk with metal legs and wooden surface.</p>
+                <p class="card-price">Price: 480</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card" data-price="650" data-rating="5">
+                <img src="https://iili.io/3Ky3PGp.jpg" alt="L-Shaped Corner Study Table">
+                <h3>L-Shaped Corner Study Table</h3>
+                <p class="card-description">A spacious L-shaped desk for efficient workspace utilization.</p>
+                <p class="card-price">Price: 650</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            
+            <div class="card" data-price="180" data-rating="4">
+                <img src="https://iili.io/3Ky3i6N.jpg" alt="Foldable Wall-Mounted Study Table">
+                <h3>Foldable Wall-Mounted Study Table</h3>
+                <p class="card-description">A space-saving foldable table, perfect for compact rooms.</p>
+                <p class="card-price">Price: 180</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>            
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            let priceFilter = document.getElementById('price').value;
+            let ratingFilter = document.getElementById('rating').value;
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let price = parseInt(card.getAttribute('data-price'));
+                let rating = parseInt(card.getAttribute('data-rating'));
+
+                card.style.display = 'block';
+
+                if (priceFilter !== 'all') {
+                    let priceRange = priceFilter.split('-');
+                    let minPrice = parseInt(priceRange[0]);
+                    let maxPrice = parseInt(priceRange[1]);
+                    if (price < minPrice || price > maxPrice) {
+                        card.style.display = 'none';
+                    }
+                }
+
+                if (ratingFilter !== 'all' && rating < parseInt(ratingFilter)) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

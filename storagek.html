@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Storage Solutions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            margin:0;
+            padding:0;
+        }
+       
+        .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 20%;
+                height: 100vh;
+                position: fixed;
+                border-right: 1px solid #ddd;
+            }
+        }
+
+        .content {
+            margin-left: 0;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 22%;
+            }
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 30px; /* Increased space between cards */
+        }
+        
+        .card {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background-color: #e6f7ff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    height:autopx;
+    overflow: hidden;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+        
+.card img {
+    width: 100%;
+    aspect-ratio: 4/3; /* Maintain a 4:3 ratio */
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+
+        .card-description {
+            overflow-wrap:break-word ;
+            text-align: left;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .card-price {
+            color: #dc3545; /* Red shade */
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px; /* Reduced space */
+        }
+
+        .card-rating {
+            color: #c82333; /* Different red shade */
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 5px; /* Reduced space */
+        }
+
+        .btn-apply {
+            background-color: #333; /* Dark color initially */
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-apply:hover {
+            background-color: #e0e0e0; /* Lighter color on hover */
+            color: #333;
+        }
+
+        .main-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Filters</h2>
+        <div class="filter-group">
+            <label for="price">Price Range</label>
+            <select id="price">
+                <option value="all">All</option>
+                <option value="400-700">400 - 700</option>
+                <option value="700-1000">700 - 1000</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="rating">Rating</label>
+            <select id="rating">
+                <option value="all">All Ratings</option>
+                <option value="4">4 Stars & Up</option>
+                <option value="3">3 Stars & Up</option>
+                <option value="2">2 Stars & Up</option>
+            </select>
+        </div>
+
+        <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="content">
+        <h2 class="main-heading">Kitchen Storage</h2>
+        <p class="sub-heading">Discover elegant cabinets and pantry units for your kitchen storage needs.</p>
+        <div class="images" id="product-list">
+            <!-- Storage Cabinets Section -->
+            <h2 class="main-heading">Storage Cabinets</h2>
+
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="499" data-rating="4">
+                    <img src="https://iili.io/2ZWTlRt.jpg" class="card-image" alt="Cabinet 1" />
+                    <h1 class="card-title">Modern White Cabinet</h1>
+                    <p class="card-description">A sleek white cabinet for versatile storage solutions.</p>
+                    <p class="card-price">Price: 499</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="599" data-rating="4">
+                    <img src="https://iili.io/2ZWT1bn.jpg" class="card-image" alt="Cabinet 2" />
+                    <h1 class="card-title">Rustic Wooden Cabinet</h1>
+                    <p class="card-description">Bring warmth to your kitchen with this rustic wood cabinet.</p>
+                    <p class="card-price">Price: 599</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="549" data-rating="3">
+                    <img src="https://iili.io/2ZWT0OX.jpg" class="card-image" alt="Cabinet 3" />
+                    <h1 class="card-title">Sliding Door Cabinet</h1>
+                    <p class="card-description">Maximize space with a stylish sliding door cabinet.</p>
+                    <p class="card-price">Price: 549</p>
+                    <p class="card-rating">Rating: ★★★☆☆</p>
+                </div>
+            </div>
+
+
+<div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="649" data-rating="4">
+                    <img src="https://iili.io/2ZWTcJI.jpg" class="card-image" alt="Cabinet 4" />
+                    <h1 class="card-title">Corner Cabinet</h1>
+                    <p class="card-description">Perfect for utilizing corner spaces in your kitchen.</p>
+                    <p class="card-price">Price: 649</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="699" data-rating="5">
+                    <img src="https://iili.io/2ZWTGxs.jpg" class="card-image" alt="Cabinet 5" />
+                    <h1 class="card-title">Glass Display Cabinet</h1>
+                    <p class="card-description">Showcase your finest tableware with this elegant cabinet.</p>
+                    <p class="card-price">Price: 699</p>
+                    <p class="card-rating">Rating: ★★★★★</p>
+                </div>
+            </div>
+
+            <!-- Pantry Units Section -->
+            <h2 class="main-heading ">Pantry Units</h2>
+
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="799" data-rating="4">
+                    <img src="https://iili.io/2ZWTMWG.jpg" class="card-image" alt="Pantry Unit 1" />
+                    <h1 class="card-title">Tall Pantry Unit</h1>
+                    <p class="card-description">Store dry goods in this tall and spacious pantry.</p>
+                    <p class="card-price">Price: 799</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+
+<div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="899" data-rating="5">
+                    <img src="https://iili.io/2ZWTVsf.jpg" class="card-image" alt="Pantry Unit 2" />
+                    <h1 class="card-title">Double-Door Pantry</h1>
+                    <p class="card-description">Organize groceries easily with double-door access.</p>
+                    <p class="card-price">Price: 899</p>
+                    <p class="card-rating">Rating: ★★★★★</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="799" data-rating="4">
+                    <img src="https://iili.io/2ZWTXf4.jpg" class="card-image" alt="Pantry Unit 2" />
+                    <h1 class="card-title">Compact Pantry Unit</h1>
+                    <p class="card-description">A compact pantry unit perfect for smaller kitchens.</p>
+                    <p class="card-price">Price: 799</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+<div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="749" data-rating="4">
+                    <img src="https://iili.io/2ZWTh0l.jpg" class="card-image" alt="Pantry Unit 4" />
+                    <h1 class="card-title">Pull-Out Pantry Unit</h1>
+                    <p class="card-description">Convenient pull-out shelves for easy access.</p>
+                    <p class="card-price">Price: 749</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="999" data-rating="4">
+                    <img src="https://iili.io/2ZWTNJS.jpg" class="card-image" alt="Pantry Unit 5" />
+                    <h1 class="card-title">Multi-Level Pantry Unit</h1>
+                    <p class="card-description">Multiple levels for efficient grocery organization.</p>
+                    <p class="card-price">Price: 999</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+    <script>
+        function applyFilters() {
+            let priceFilter = document.getElementById('price').value;
+            let ratingFilter = document.getElementById('rating').value;
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let price = parseInt(card.getAttribute('data-price'));
+                let rating = parseInt(card.getAttribute('data-rating'));
+
+                // Reset the display to block initially
+                card.style.display = 'block';
+
+                // Price Filter
+                if (priceFilter !== 'all') {
+                    let priceRange = priceFilter.split('-');
+                    let minPrice = parseInt(priceRange[0]);
+                    let maxPrice = parseInt(priceRange[1]);
+                    if (price < minPrice || price > maxPrice) {
+                        card.style.display = 'none';
+                    }
+                }
+
+                // Rating Filter
+                if (ratingFilter !== 'all' && rating < parseInt(ratingFilter)) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

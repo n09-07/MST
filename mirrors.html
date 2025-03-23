@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Mirrors</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 90%;
+        }
+
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 20%;
+                height: 100vh;
+                position: fixed;
+                border-right: 1px solid #ddd;
+            }
+        }
+
+        .content {
+            margin-left: 0;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 22%;
+            }
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+            gap: 30px; /* Increased space between cards */
+        }
+
+        .card {
+            text-align: center;
+            background-color: #e0f7fa; /* Light blue shade */
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px; /* Spacing from top */
+            margin-bottom: 20px; /* Spacing from bottom */
+            height: 400px; /* Adjusted card height */
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 80%;
+            border-radius: 8px;
+            margin-bottom: 10px; /* Space between image and text */
+            max-height: 200px; /* Limit image size */
+            object-fit: cover;
+        }
+
+        .card-description {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            color: #dc3545; /* Red shade */
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px; /* Reduced space */
+        }
+
+        .card-rating {
+            color: #c82333; /* Different red shade */
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 5px; /* Reduced space */
+        }
+
+        .btn-apply {
+            background-color: #333; /* Dark color initially */
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-apply:hover {
+            background-color: #e0e0e0; /* Lighter color on hover */
+            color: #333;
+        }
+
+        .main-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Filters</h2>
+        <div class="filter-group">
+            <label for="price">Price Range</label>
+            <select id="price">
+                <option value="all">All</option>
+                <option value="100-300">100 - 300</option>
+                <option value="300-500">300 - 500</option>
+                <option value="500-1000">500 - 1000</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="rating">Rating</label>
+            <select id="rating">
+                <option value="all">All Ratings</option>
+                <option value="4">4 Stars & Up</option>
+                <option value="3">3 Stars & Up</option>
+                <option value="2">2 Stars & Up</option>
+            </select>
+        </div>
+
+        <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="content">
+        <h2 class="main-heading">Wall Mirrors</h2>
+        <p class="sub-heading">Explore a variety of wall mirrors to enhance the beauty of your home or office.</p>
+
+        <div class="images" id="product-list">
+
+            <div class="card mb-5" data-price="299" data-rating="4">
+                <img src="https://i.ibb.co/gMCGBJw8/ZZPQ-42-Inch-Large-Round-Mirror-for-Wall-HD-Gold-Circle-Mirror-for-Home-Decor-Metal-Frame-Wall-Mount.jpg" alt="ZZPQ-42-Inch-Large-Round-Mirror-for-Wall-HD-Gold-Circle-Mirror-for-Home-Decor-Metal-Frame-Wall-Mount">
+                <h3>Round Wall Mirror</h3>
+                <p class="card-description">A stylish round mirror with a minimalist design, perfect for modern spaces.</p>
+                <p class="card-price">Price: 299</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card mb-5" data-price="349" data-rating="5">
+                <img src="https://i.ibb.co/bgZcYm1V/Shattervue-38inchx26-Oval-Bathroom-Mirror-Wall-Mounted-Mirror-with-Metal-Frame-Gold-Size-38-x-26.jpg" alt="Shattervue-38inchx26-Oval-Bathroom-Mirror-Wall-Mounted-Mirror-with-Metal-Frame-Gold-Size-38-x-26">
+                <h3>Oval Wall Mirror</h3>
+                <p class="card-description">A classic oval-shaped mirror that adds elegance to any room.</p>
+                <p class="card-price">Price: 349</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="599" data-rating="3">
+                <img src="https://i.ibb.co/k6qzZZb6/857mm-Luxury-Creative-Gold-Sunburst-Large-Metal-Wall-Mirror-Decor-Art-for-Living-Room.jpg" alt="857mm-Luxury-Creative-Gold-Sunburst-Large-Metal-Wall-Mirror-Decor-Art-for-Living-Room">
+                <h3>Sunburst Wall Mirror</h3>
+                <p class="card-description">A sunburst design mirror that brings a touch of glamour and light.</p>
+                <p class="card-price">Price: 599</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+            <div class="card mb-5" data-price="459" data-rating="4">
+                <img src="https://i.ibb.co/tp1Jdh3N/Ebern-Designs-Matherne-Modern-Contemporary-Rectangular-Bathroom-Wall-Mirrors-Reviews-Wayfair.jpg" alt="Ebern-Designs-Matherne-Modern-Contemporary-Rectangular-Bathroom-Wall-Mirrors-Reviews-Wayfair">
+                <h3>Rectangular Wall Mirror</h3>
+                <p class="card-description">A sleek rectangular mirror suitable for hallways or living rooms.</p>
+                <p class="card-price">Price: 459</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card mb-5" data-price="399" data-rating="5">
+                <img src="https://i.ibb.co/B56HVJG6/Mirror.jpg" alt="Mirror">
+                <h3>Golden Frame Mirror</h3>
+                <p class="card-description">A luxurious golden-framed mirror for a regal look in your home.</p>
+                <p class="card-price">Price: 399</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="359" data-rating="4">
+                <img src="https://i.ibb.co/QvBcRThB/8d6c1c64-1d4b-4ae4-a11c-4fac36a76abc.jpg" alt="8d6c1c64-1d4b-4ae4-a11c-4fac36a76abc">
+                <h3>Square Wall Mirror</h3>
+                <p class="card-description">A modern square mirror ideal for contemporary interiors.</p>
+                <p class="card-price">Price: 359</p>
+                <p class="card-rating">Rating: ★★★★☆</p>
+            </div>
+            <div class="card mb-5" data-price="799" data-rating="5">
+                <img src="https://i.ibb.co/fzpxRgYq/LARGE-HANGING-FULL-LENGTH-MIRROR-WITH-ROUNDED-FRAME.jpg" alt="LARGE-HANGING-FULL-LENGTH-MIRROR-WITH-ROUNDED-FRAME">
+                <h3>Full-length Wall Mirror</h3>
+                <p class="card-description">A large full-length mirror that is perfect for bedrooms and dressing rooms.</p>
+                <p class="card-price">Price: 799</p>
+                <p class="card-rating">Rating: ★★★★★</p>
+            </div>
+            <div class="card mb-5" data-price="679" data-rating="3">
+                <img src="https://i.ibb.co/4Z2Qnvq8/Bali-Modern-Round-Wall-Mirror-40-Gold-Walmart-com.jpg" alt="Bali-Modern-Round-Wall-Mirror-40-Gold-Walmart-com">
+                <h3>Round Gold Mirror</h3>
+                <p class="card-description">A luxurious round mirror with a golden frame, suitable for any stylish room.</p>
+                <p class="card-price">Price: 679</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            let priceFilter = document.getElementById('price').value;
+            let ratingFilter = document.getElementById('rating').value;
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let price = parseInt(card.getAttribute('data-price'));
+                let rating = parseInt(card.getAttribute('data-rating'));
+
+                // Reset the display to block initially
+                card.style.display = 'block';
+
+                // Price Filter
+                if (priceFilter !== 'all') {
+                    let priceRange = priceFilter.split('-');
+                    let minPrice = parseInt(priceRange[0]);
+                    let maxPrice = parseInt(priceRange[1]);
+                    if (price < minPrice || price > maxPrice) {
+                        card.style.display = 'none';
+                    }
+                }
+
+                // Rating Filter
+                if (ratingFilter !== 'all' && rating < parseInt(ratingFilter)) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

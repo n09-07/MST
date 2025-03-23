@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Office Seating</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: "Roboto", sans-serif;
+        }
+        .section {
+            padding: 30px 0;
+        }
+        .section-heading {
+            color: #1e3d59;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .section-description {
+            color: #5a7184;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .card {
+            text-align: center;
+            background-color: #f1f3f8;
+            border: solid 1px #e0e0e0;
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .card-title {
+            color: #3c4858;
+            font-size: 22px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        .card-description {
+            color: #7b8794;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .card-price {
+            color: #0d6efd;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        @media (min-width: 992px) {
+            .container {
+                max-width: 80%;
+            }
+        }
+        .filters {
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .filters select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn-apply {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-apply:hover {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container section">
+        <h1 class="section-heading">Home Office Seating</h1>
+        <p class="section-description">Explore ergonomic and stylish seating options for your home office.</p>
+
+        <!-- Filters Section -->
+        <div class="filters">
+            <h5>Filters</h5>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price Range</label>
+                <select id="price">
+                    <option value="all">All</option>
+                    <option value="100-300">100 - 300</option>
+                    <option value="300-500">300 - 500</option>
+                    <option value="500-700">500 - 700</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <select id="rating">
+                    <option value="all">All Ratings</option>
+                    <option value="4">4 Stars & Up</option>
+                    <option value="3">3 Stars & Up</option>
+                    <option value="2">2 Stars & Up</option>
+                </select>
+            </div>
+            <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <!-- Product Cards Section -->
+        <div class="row" id="product-list">
+            <!-- Office Chair -->
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="199" data-rating="4">
+                    <img src="https://iili.io/2Zxge5P.jpg" class="card-image" alt="Upholstered Chair" />
+                    <h1 class="card-title">Upholstered Chair</h1>
+                    <p class="card-description">A sleek office chair designed for comfort during long work sessions.</p>
+                    <p class="card-price">Price: 199</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+
+            <!-- Ergonomic Chair -->
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="299" data-rating="5">
+                    <img src="https://iili.io/2Zxgke1.jpg" class="card-image" alt="Ergonomic Chair" />
+                    <h1 class="card-title">Ergonomic Chair</h1>
+                    <p class="card-description">An ergonomic chair offering lumbar support and adjustable settings.</p>
+                    <p class="card-price">Price: 299</p>
+                    <p class="card-rating">Rating: ★★★★★</p>
+                </div>
+            </div>
+
+            <!-- Couch -->
+            <div class="col-12 col-md-6 mb-5 mt-3">
+                <div class="card" data-price="499" data-rating="4">
+                    <img src="https://iili.io/2ZxgvmF.jpg" class="card-image" alt="Couch" />
+                    <h1 class="card-title">Couch</h1>
+                    <p class="card-description">A comfortable couch for relaxation during breaks.</p>
+                    <p class="card-price">Price: 499</p>
+                    <p class="card-rating">Rating: ★★★★☆</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            let priceFilter = document.getElementById('price').value;
+            let ratingFilter = document.getElementById('rating').value;
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let price = parseInt(card.getAttribute('data-price'));
+                let rating = parseInt(card.getAttribute('data-rating'));
+
+                card.style.display = 'block';
+
+                if (priceFilter !== 'all') {
+                    let priceRange = priceFilter.split('-');
+                    let minPrice = parseInt(priceRange[0]);
+                    let maxPrice = parseInt(priceRange[1]);
+                    if (price < minPrice || price > maxPrice) {
+                        card.style.display = 'none';
+                    }
+                }
+
+                if (ratingFilter !== 'all' && rating < parseInt(ratingFilter)) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

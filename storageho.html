@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Office Storage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 90%;
+        }
+
+        .sidebar {
+            width: 100%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            box-sizing: border-box;
+            border-bottom: 1px solid #ddd;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 20%;
+                position: fixed;
+                border-right: 1px solid #ddd;
+                height: 100vh;
+            }
+
+            .content {
+                margin-left: 0;
+                padding:20px;
+            }
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                margin-left: 22%;
+            }
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px;
+        }
+
+        .card {
+            text-align: center;
+            background-color: #e3f2fd;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 80%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            color: #3c4858;
+            font-size: 22px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .card-description {
+            color: #7b8794;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            color:#1e88e5;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-rating {
+            color: #1565c0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .btn-apply {
+            background-color: #333;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-apply:hover {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .main-heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Filters</h2>
+        <div class="filter-group">
+            <label for="price">Price Range</label>
+            <select id="price">
+                <option value="all">All</option>
+                <option value="100-300">100 - 300</option>
+                <option value="300-500">300 - 500</option>
+                <option value="500-1000">500 - 1000</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="rating">Rating</label>
+            <select id="rating">
+                <option value="all">All Ratings</option>
+                <option value="4">4 Stars & Up</option>
+                <option value="3">3 Stars & Up</option>
+                <option value="2">2 Stars & Up</option>
+            </select>
+        </div>
+
+        <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="content">
+        <h1 class="section-heading">Home Office Storage</h1>
+        <p class="section-description">Explore practical storage solutions for your home office to keep your workspace organized.</p>
+
+        <div class="images" id="product-list">
+
+            <!-- Bookshelf -->
+            <div class="card mb-5" data-price="249" data-rating="4">
+                <img src="https://iili.io/2ZVftjV.jpg" alt="Modern Bookshelf">
+                <h3 class="card-title">Modern Bookshelf</h3>
+                <p class="card-description">A sleek, modern bookshelf to store books and decor in style.</p>
+                <p class="card-price">Price: 249</p>
+                <p class="card-rating">Rating:★★★★☆</p>
+            </div>
+
+            <div class="card mb-5" data-price="279" data-rating="5">
+                <img src="https://iili.io/2ZVfDZB.jpg" alt="Wooden Bookshelf">
+                <h3 class="card-title">Wooden Bookshelf</h3>
+                <p class="card-description">A beautiful wooden bookshelf with ample space for books and ornaments.</p>
+                <p class="card-price">Price: 279</p>
+                <p class="card-rating">Rating: ★★★★★ </p>
+            </div>
+
+            <div class="card mb-5" data-price="299" data-rating="4">
+                <img src="https://iili.io/2ZVfy6F.jpg" alt="Compact Bookshelf">
+                <h3 class="card-title">Compact Bookshelf</h3>
+                <p class="card-description">A compact and practical bookshelf for smaller spaces.</p>
+                <p class="card-price">Price: 299</p>
+                <p class="card-rating">Rating: ★★★☆☆</p>
+            </div>
+
+            <div class="card mb-5" data-price="359" data-rating="5">
+                <img src="https://iili.io/2ZVqH3g.jpg" alt="Industrial Bookshelf">
+                <h3 class="card-title">Industrial Bookshelf</h3>
+                <p class="card-description">A robust, industrial-style bookshelf perfect for office settings.</p>
+                <p class="card-price">Price: 359</p>
+                <p class="card-rating">Rating:  ★★★★☆</p>
+            </div>
+
+            <div class="card mb-5" data-price="249" data-rating="3">
+                <img src="https://iili.io/2ZVq2yv.jpg" alt="Small Bookshelf">
+                <h3 class="card-title">Small Bookshelf</h3>
+                <p class="card-description">A small bookshelf ideal for compact home offices or apartments.</p>
+                <p class="card-price">Price: 249</p>
+                <p class="card-rating">Rating:★★★☆☆</p>
+            </div>
+
+            <!-- Filing Cabinet -->
+            <div class="card mb-5" data-price="329" data-rating="5">
+                <img src="https://iili.io/2ZVfmCP.jpg" alt="Heavy Duty Filing Cabinet">
+                <h3 class="card-title">Heavy Duty Filing Cabinet</h3>
+                <p class="card-description">A heavy-duty filing cabinet designed for long-term document storage.</p>
+                <p class="card-price">Price: 329</p>
+                <p class="card-rating">Rating:★★★★★ </p>
+            </div>
+
+            <div class="card mb-5" data-price="299" data-rating="4">
+                <img src="https://iili.io/2ZVfZTQ.jpg" alt="2-Drawer Filing Cabinet">
+                <h3 class="card-title">2-Drawer Filing Cabinet</h3>
+                <p class="card-description">A 2-drawer filing cabinet that offers efficient storage for office essentials.</p>
+                <p class="card-price">Price: 299</p>
+                <p class="card-rating">Rating:★★★★☆ </p>
+            </div>
+
+            <div class="card mb-5" data-price="259" data-rating="3">
+                <img src="https://iili.io/2ZVfpG1.jpg" alt="Compact Filing Cabinet">
+                <h3 class="card-title">Compact Filing Cabinet</h3>
+                <p class="card-description">A compact filing cabinet designed to fit in smaller office spaces.</p>
+                <p class="card-price">Price: 259</p>
+                <p class="card-rating">Rating:  ★★★★★</p>
+            </div>
+
+            <div class="card mb-5" data-price="349" data-rating="4">
+                <img src="https://iili.io/2ZVqJaa.jpg" alt="3-Drawer Filing Cabinet">
+                <h3 class="card-title">Drawer Filing Cabinet</h3>
+                <p class="card-description">A sturdy drawer filing cabinet to store documents and office supplies securely.</p>
+                <p class="card-price">Price: 349</p>
+                <p class="card-rating">Rating:★★★☆☆ </p>
+            </div>
+
+            <div class="card mb-5" data-price="369" data-rating="5">
+                <img src="https://iili.io/2ZVqd8J.jpg" alt="Premium Filing Cabinet">
+                <h3 class="card-title">Premium Filing Cabinet</h3>
+                <p class="card-description">A premium filing cabinet with enhanced security features and ample storage space.</p>
+                <p class="card-price">Price: 369</p>
+                <p class="card-rating">Rating: ★★★★★ </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            let priceFilter = document.getElementById('price').value;
+            let ratingFilter = document.getElementById('rating').value;
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let price = parseInt(card.getAttribute('data-price'));
+                let rating = parseInt(card.getAttribute('data-rating'));
+
+                // Reset the display to block initially
+                card.style.display = 'block';
+
+                // Price Filter
+                if (priceFilter !== 'all') {
+                    let priceRange = priceFilter.split('-');
+                    let minPrice = parseInt(priceRange[0]);
+                    let maxPrice = parseInt(priceRange[1]);
+                    if (price < minPrice || price > maxPrice) {
+                        card.style.display = 'none';
+                    }
+                }
+
+                // Rating Filter
+                if (ratingFilter !== 'all' && rating < parseInt(ratingFilter)) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="shopEaseApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    h2 {
+      font-size: 40px;
+      font-weight:bolder;
+      color: #333;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* Video Background */
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; /* Keeps video in the background */
+    }
+
+    /* Main Content Section */
+    main {
+      height: 800px;
+      background-color: #fff;
+    }
+
+    /* All Collections Section */
+    .all-collections-section {
+      padding: 40px 20px;
+      background-color: #fff;
+      margin-bottom: 60px;
+      margin-top: 100px;
+    }
+
+    .all-collections-section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .image-links-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .image-item {
+      text-align: center;
+    }
+
+    .image-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .image-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* Footer Section */
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 40px 20px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .footer-section {
+      width: 45%;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: 14px;
+      color: #bbb;
+      margin-top: 20px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-section {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .image-links-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+
+      .image-item img {
+        height: 150px; /* Adjust image size on mobile */
+      }
+
+      .dark {
+  background-color: #222;
+  color: white;
+}
+
+/* Ensure text remains visible in dark mode */
+.dark h2, .dark h3, .dark p, .dark a {
+  color: white;
+}
+
+/* Adjust input field for dark mode */
+.dark input {
+  background-color: #444;
+  color: white;
+  border: 1px solid #888;
+}
+/* Modify cards and recommendation boxes */
+.dark .bg-white {
+  background-color: #333 !important;
+  color: white;
+}
+
+/* Adjust links */
+.dark a {
+  color: #bbb;
+}
+
+.dark a:hover {
+  color: #ddd;
+}
+
+/* Modify footer */
+.dark footer {
+  background-color: #111;
+}
+
+/* Modify recommendations and all collections sections */
+.dark .all-collections-section, 
+.dark .recommendations-section {
+  background-color: #333;
+}
+
+/* Modify images hover effect */
+.dark .image-item img {
+  filter: brightness(0.8);
+}
+
+.dark .image-item img:hover {
+  filter: brightness(1);
+}
+
+/* Modify expand hover cards */
+.dark .group-hover\:block {
+  background-color: #444 !important;
+  color: white !important;
+}
+
+/* Hover effect for better visibility */
+.dark .group-hover\:block:hover {
+  background-color: #555 !important;
+  color: #ffcc00 !important; /* Optional: Highlight text on hover */
+}
+    }
+  </style>
+</head>
+<body ng-controller="CatalogController">
+  <!-- Video Background -->
+  <video autoplay loop muted playsinline>
+    <source src="bg.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Static Header 1: Title -->
+  <header class="bg-black bg-opacity-60 text-white flex justify-between p-5">
+    <div class="text-2xl font-bold">ShopEase</div>
+    <nav class="space-x-4">
+      <a href="#signup" class="hover:underline">Sign Up</a>
+      <a href="#login" class="hover:underline">Login</a>
+      <button id="darkModeToggle" class="bg-gray-700 text-white px-3 py-1 rounded-md">
+        🌙 Toggle Dark Mode
+      </button>
+      
+      
+    </nav>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="flex justify-center mt-8">
+    <input type="text" ng-model="searchText" placeholder="Search for furniture..." class="border p-3 w-1/2 rounded-md">
+  </div>
+
+  <!-- Expand Hover Cards -->
+  <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-10">
+    <div class="bg-white bg-opacity-75 shadow-md rounded-xl hover:scale-105 transition-transform overflow-hidden group" 
+         ng-repeat="category in mainCategories | filter:searchText">
+      <div class="p-5 bg-indigo-400 text-white">
+        <h2 class="text-xl font-semibold">{{category.name}}</h2>
+      </div>
+      <!-- Expand on Hover Section -->
+      <div class="hidden group-hover:block p-5 bg-gray-100 transition-all">
+        <div ng-repeat="subCategory in category.subCategories">
+          <h3 class="text-indigo-600 font-medium text-lg">
+            <a ng-href="{{subCategory.link | encodeURIComponent}}">{{subCategory.name}}</a>
+        </h3>
+          <ul class="list-disc list-inside mt-2">
+            <li class="text-gray-700" ng-repeat="item in subCategory.items">{{item}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Recommendations Section -->
+  <section class="all-collections-section">
+    <h2>Recommended for You</h2>
+    <div ng-repeat="recommendation in recommendedItems">
+        <a ng-href="{{recommendation.link}}" class="hover:underline">{{recommendation.name}}</a>
+        <p class="text-gray-700 mt-2">{{recommendation.description}}</p>
+      </div>
+  </section>
+
+  <script>
+    var app = angular.module('shopEaseApp', []);
+    app.filter('encodeURIComponent', function() {
+    return window.encodeURIComponent;
+});
+    app.controller('CatalogController', function ($scope) {
+      // Sample main categories
+      $scope.mainCategories=[
+        {
+          name: 'Living Room',
+          subCategories: [
+            {
+              name: 'Tables',
+              link: 'tableslr.html',
+              items: ['Coffee Tables', 'Console Tables', 'Side Tables', 'End Tables', 'Nesting Tables']
+            },
+            {
+              name: 'Seating',
+              link: 'seatinglr.html',
+              items: ['Sofas', 'Armchairs', 'Loveseats', 'Recliners', 'Ottomans']
+            },
+            {
+              name: 'Storage',
+              link: 'storagelr.html',
+              items: ['TV Stands', 'Cabinets', 'Bookshelves', 'Storage Ottomans', 'Media Consoles']
+            },
+            {
+              name: 'Accessories',
+              link: 'accessorieslr.html',
+              items: ['Floor Lamps', 'Table Lamps', 'Carpets']
+            }
+          ]
+        },
+        {
+          name: 'Bedroom',
+          subCategories: [
+            {
+              name: 'Beds',
+              link: 'bedsbr.html',
+              items: ['King Size', 'Queen Size']
+            },
+            {
+              name: 'Storage',
+              link: 'storagebr.html',
+              items: ['Wardrobes', 'Dressers']
+            },
+            {
+              name: 'Accessories',
+              link: 'accessoriesbr.html',
+              items: ['Night Stands', 'Vanity Tables']
+            }
+          ]
+        },
+        {
+          name: 'Kitchen',
+          subCategories: [
+            {
+              name: 'Tables',
+              link: 'tablesk.html',
+              items: ['Dining Tables']
+            },
+            {
+              name: 'Seating',
+              link: 'seatingk.html',
+              items: ['Bar Stools', 'Dining Chairs']
+            },
+            {
+              name: 'Storage',
+              link: 'storagek.html',
+              items: ['Cabinets', 'Pantries']
+            }
+          ]
+        },
+        {
+          name: 'Home Office',
+          subCategories: [
+            {
+              name: 'Desks',
+              link: 'desksho.html',
+              items: ['Writing Desks', 'Standing Desks', 'Corner Desks', 'Executive Desks']
+            },
+            {
+              name: 'Seating',
+              link: 'seatingho.html',
+              items: ['Office Chairs', 'Ergonomic Chairs', 'Couches']
+            },
+            {
+              name: 'Storage',
+              link: 'storageho.html',
+              items: ['File Cabinets', 'Bookshelves']
+            }
+          ]
+        }
+      ];
+
+      // Initialize recommended items
+      $scope.recommendedItems = [];
+
+      // Load previously viewed items from local storage
+      $scope.loadRecommendations = function() {
+    let viewedItems = JSON.parse(localStorage.getItem('viewedItems')) || [];
+    
+    if (!Array.isArray(viewedItems)) {
+        viewedItems = [];
+    }
+  // Use a Set to ensure uniqueness
+  let uniqueRecommendations = new Set();
+
+    console.log("Viewed Items:", viewedItems); // Debugging log
+
+    $scope.recommendedItems = $scope.mainCategories.flatMap(category => 
+        category.subCategories.flatMap(subCategory => 
+            subCategory.items.map(item => ({
+                link: subCategory.link,
+                name: item
+            }))
+        )
+    ).filter(item => {
+        // Check if any viewed string is contained within the item's name
+       if (viewedItems.some(viewed => item.name.toLowerCase().includes(viewed.toLowerCase()))) {
+        if (!uniqueRecommendations.has(item.name)) {
+                uniqueRecommendations.add(item.name);
+                return true;
+        }
+    }
+    return false;
+});
+    console.log("Recommended Items:", $scope.recommendedItems); // Debugging log
+};
+
+
+
+      // Track viewed items
+      $scope.trackItem = function(itemName) {
+    let viewedItems = JSON.parse(localStorage.getItem('viewedItems')) || [];
+    
+    if (!Array.isArray(viewedItems)) {
+        viewedItems = []; // Ensure it is always an array
+    }
+
+    if (!viewedItems.includes(itemName)) {
+        viewedItems.push(itemName);
+        localStorage.setItem('viewedItems', JSON.stringify(viewedItems));
+        console.log("Added to Viewed Items:", itemName); // Debugging log
+    }
+    
+    $scope.loadRecommendations(); // Update recommendations
+
+    // Ensure Angular updates the view
+    $scope.$applyAsync();
+};
+
+
+      // Load recommendations on initialization
+      $scope.loadRecommendations();
+
+      window.debugScope=$scope;
+    });
+
+  </script>
+
+  <!-- All Collections Section -->
+  <section class="all-collections-section">
+    <h2>All Collections</h2>
+    <div class="image-links-container">
+      <!-- Image Items -->
+      <div class="image-item">
+        <a href="woodenbeds.html" ng-click="trackItem('Wooden Beds')"><img src="https://iili.io/2ZnK8js.jpg" alt="Collection 1"></a>
+        <p class="image-caption">Wooden Beds</p>
+      </div>
+      <div class="image-item">
+        <a href="UpholsteredBeds.html" ng-click="trackItem('Upholstered Beds')"><img src="https://iili.io/2ZnKeyX.jpg" alt="Collection 2"></a>
+        <p class="image-caption">Upholstered Beds</p>
+      </div>
+      <div class="image-item">
+        <a href="studytables.html" ng-click="trackItem('Study Tables')"><img src="https://iili.io/2ZnKvun.jpg" alt="Collection 3"></a>
+        <p class="image-caption">Study Tables</p>
+      </div>
+      <div class="image-item">
+        <a href="sofas.html" ng-click="trackItem('Sofas')"><img src="https://iili.io/2ZnKMZJ.jpg" alt="Collection 4"></a>
+        <p class="image-caption">Sofas</p>
+      </div>
+      <div class="image-item">
+        <a href="coffeetables.html" ng-click="trackItem('Coffee Tables')"><img src="https://iili.io/2ZnKWCv.jpg" alt="Collection 5"></a>
+        <p class="image-caption">Coffee Tables</p>
+      </div>
+      <div class="image-item">
+        <a href="dining.html" ng-click="trackItem('Dining Tables')"><img src="https://iili.io/2ZnKXGR.jpg" alt="Collection 6"></a>
+        <p class="image-caption">Dining Tables</p>
+      </div>
+      <div class="image-item">
+        <a href="bookshelves.html" ng-click="trackItem('Bookshelves')"><img src="https://iili.io/2ZnKSZG.jpg" alt="Collection 7"></a>
+        <p class="image-caption">Bookshelves</p>
+      </div>
+      <div class="image-item">
+        <a href="mirrors.html" ng-click="trackItem('Wall Mirrors')"><img src="https://iili.io/2ZnKgnf.jpg" alt="Collection 8"></a>
+        <p class="image-caption">Wall Mirrors</p>
+      </div>
+      <div class="image-item">
+        <a href="Barstools.html" ng-click="trackItem('Bar Stools')"><img src="https://iili.io/2ZnKOvt.jpg" alt="Collection 9"></a>
+        <p class="image-caption">Bar Stools</p>
+      </div>
+      <div class="image-item">
+        <a href="Canvas.html" ng-click="trackItem('Canvas')"><img src="https://iili.io/2ZnKGja.jpg" alt="Collection 10"></a>
+        <p class="image-caption">Canvas</p>
+      </div>
+      <div class="image-item">
+        <a href="bedsidetables.html" ng-click="trackItem('Bedside Tables')"><img src="https://iili.io/2ZnKNaI.jpg" alt="Collection 11"></a>
+        <p class="image-caption">Bedside Tables</p>
+      </div>
+      <div class="image-item">
+        <a href="SEtables.html" ng-click="trackItem('Side and End Tables')"><img src="https://iili.io/2LtaiEN.jpg" alt="Collection 11"></a>
+        <p class="image-caption">Side and End Tables</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>ShopEase is the best place for furniture shopping, bringing you a wide variety of home furnishings, from beds to bookshelves, at great prices.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: support@shopease.com</p>
+        <p>Phone: (123) 456-7890</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 ShopEase. All rights reserved.</p>
+    </div>
+
+  </footer>
+  <script>
+   
+   document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.getElementById("darkModeToggle");
+    const body = document.body;
+
+    // Check if dark mode was previously enabled
+    if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark");
+    }
+
+    // Toggle dark mode and save state
+    toggleButton.addEventListener("click", function () {
+        body.classList.toggle("dark");
+
+        if (body.classList.contains("dark")) {
+            localStorage.setItem("darkMode", "enabled");
+        } else {
+            localStorage.setItem("darkMode", "disabled");
+        }
+    });
+});
+
+  </script>
+  
+</body>
+</html>
