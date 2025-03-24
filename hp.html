@@ -500,30 +500,30 @@
     </div>
 
   </footer>
+ 
   <script>
-   
-   document.addEventListener("DOMContentLoaded", function () {
-    const toggleButton = document.getElementById("darkModeToggle");
-    const body = document.body;
-
-    // Check if dark mode was previously enabled
-    if (localStorage.getItem("darkMode") === "enabled") {
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleButton = document.getElementById("darkModeToggle");
+      const body = document.body;
+  
+      // Check if dark mode was previously enabled
+      if (localStorage.getItem("darkMode") === "enabled") {
         body.classList.add("dark");
-    }
-
-    // Toggle dark mode and save state
-    toggleButton.addEventListener("click", function () {
+      }
+  
+      // Toggle dark mode and save state
+      toggleButton.addEventListener("click", function () {
         body.classList.toggle("dark");
-
+  
         if (body.classList.contains("dark")) {
-            localStorage.setItem("darkMode", "enabled");
+          localStorage.setItem("darkMode", "enabled");
         } else {
-            localStorage.setItem("darkMode", "disabled");
+          localStorage.setItem("darkMode", "disabled");
         }
+      });
     });
-});
-
   </script>
+  
   
 </body>
 </html>
